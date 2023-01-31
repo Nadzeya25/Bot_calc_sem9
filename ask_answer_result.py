@@ -1,6 +1,5 @@
 # **запуск бота в файлк error_mes_go**
 
-
 from logg import logging
 import telebot  
 from telebot import types
@@ -11,7 +10,7 @@ my_bot = telebot.TeleBot('5924802034:AAEB7qD9p8lc6a5HDWiVstiQaHJwwGx4CZM')
 
 @my_bot.message_handler(commands = ["start"])
 def start(message):
-    my_bot.send_message(message.chat.id, f"бот-калькулятор готов к работе, нажмите 👉 /button для выбора действия") 
+    my_bot.send_message(message.chat.id, f"бот-калькулятор целых чисел готов к работе, нажмите 👉 /button для выбора действия") 
 
 @my_bot.message_handler(commands = ["button"])
 def button(message):
@@ -36,21 +35,12 @@ def button(message):
     markup.add(but_exit)
        
     my_bot.send_message(message.chat.id, "выбери вариант ниже 👇", reply_markup=markup )
-from math_op import* # импортирует всё из модуля
-# from math_op import sum
-# from math_op import sub
-# from math_op import mult
-# from math_op import div_all
-# from math_op import div_int
-# from math_op import div_rem
-# from math_op import pow
 
+from math_op import* # импортирует всё из модуля
 from error_mes_go import*
-# from error_mes_go import error_button
-# from error_mes_go import error_nums
 
 def right_do_it(message):
-    my_bot.send_message(message.chat.id, "напиши два числа через пробел")
+    my_bot.send_message(message.chat.id, "напиши два целых числа через пробел")
     my_bot.register_next_step_handler(message, result_op)
 
 @my_bot.message_handler(content_types = ['text'])
@@ -97,7 +87,7 @@ def controller(message):
             my_bot.send_message(message.chat.id, "всё, закончили, идите пить чай ☕")
     
         case _:
-            my_bot.send_message(message.chat.id, "сначала надо кнопку с действием выбрать 🔤")
+            my_bot.send_message(message.chat.id, "сначала нужно выбрать кнопку с действием  🔤")
             error_button(message)  #возвращаемся к меню
             logging.error("Error")
 
@@ -110,12 +100,13 @@ def result_op(message):
         i = text1.index(' ')
         num1 = text1[:i]
         num2 = text1[i+1:]
-        res = op(num1, num2)   
-        my_bot.send_message(message.chat.id, f"{num1}{sign_op}{num2} = {res}")
+        res = op(num1, num2)
+        my_bot.send_message(message.chat.id, f"{num1} {sign_op} {num2} = {res}")
         button(message)  #возвращаемся к меню
     except:
-        error_nums(message)
-        logging.error("Error")    
+        error_nums(message)    
+        logging.error("Error")
+
 
 my_bot.infinity_polling()
 
