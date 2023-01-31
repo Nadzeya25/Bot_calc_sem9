@@ -9,8 +9,8 @@ def sub(a, b):
 def mult(a, b):
     return int(a) * int(b)
 
-def div_rem(a, b):   
-        return int(a) % int(b)
+def div_rem(a, b):
+    return int(a) % int(b)
     
 def div_all(a, b):
     return round(int(a) / int(b), 2)
